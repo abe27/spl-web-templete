@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const user = {
   name: "Tom Cook",
@@ -17,6 +18,7 @@ const navigation = [
   { name: "จัดเตรียม", href: "/prepare", current: false },
   { name: "โหลดขึ้นตู้", href: "/loading", current: false },
   { name: "คลังสินค้า", href: "/stock", current: false },
+  { name: "รายการ EDI", href: "/edi", current: false },
   { name: "รายงาน", href: "/report", current: false },
   { name: "จัดการระบบ", href: "/administrator", current: false },
 ];
@@ -37,9 +39,14 @@ const myLogo = ({ src, shade }) => {
 };
 
 const NavBar = () => {
+  const router = useRouter()
+  const routerActive = (href) => {
+    return router.pathname.substring(0, 5) === href.substring(0, 5)
+  }
+
   return (
     <>
-      <Disclosure as="nav" className="bg-inherit">
+      <Disclosure as="nav" className="bg-inherit shadow">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -61,7 +68,7 @@ const NavBar = () => {
                         <Link key={item.name} href={item.href}>
                           <span
                             className={classNames(
-                              item.current
+                              routerActive(item.href)
                                 ? "bg-blue-500 text-gray-200"
                                 : "text-gray-500 hover:bg-blue-500 hover:text-gray-200",
                               "px-3 py-2 rounded-md text-sm font-medium"

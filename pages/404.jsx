@@ -45,8 +45,11 @@ const NotFoundPage = () => {
             </p>
             <Link href="/">
               <span className="px-6 py-2 text-sm font-semibold bg-blue-100">
-                <span className="text-blue-800">กลับสู่หน้าหลัก</span>(
-                <span className="text-rose-800">{countDown}</span>)
+                <span className="text-blue-800">กลับสู่หน้าหลัก</span>
+                &nbsp;&nbsp;
+                <span className="countdown text-rose-700">
+                  <span style={{ "--value": countDown }}></span>
+                </span>
               </span>
             </Link>
           </div>
