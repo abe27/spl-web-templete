@@ -1,33 +1,31 @@
-import { MainLayOut } from "@/components";
+import {
+  BarChart,
+  LineChart,
+  MainLayOut,
+  StatElement,
+  SummaryReceive,
+} from "@/components";
 
 const HomePage = () => {
   return (
     <MainLayOut>
       <>
-        <div className="stats stats-vertical lg:stats-horizontal shadow space-x-4">
-          <div className="stat">
-            <div className="stat-title">Downloads</div>
-            <div className="stat-value">31K</div>
-            <div className="stat-desc">Jan 1st - Feb 1st</div>
-          </div>
-
-          <div className="stat">
-            <div className="stat-title">New Users</div>
-            <div className="stat-value">4,200</div>
-            <div className="stat-desc">↗︎ 400 (22%)</div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">New Users</div>
-            <div className="stat-value">4,200</div>
-            <div className="stat-desc">↗︎ 400 (22%)</div>
-          </div>
-
-          <div className="stat">
-            <div className="stat-title">New Registers</div>
-            <div className="stat-value">1,200</div>
-            <div className="stat-desc">↘︎ 90 (14%)</div>
-          </div>
+        <div className="mt-2">
+          <StatElement />
         </div>
+        <section className="divider" />
+        <section className="flex flex-row flex-wrap flex-grow">
+          <section className="w-full pr-4 md:w-1/2">
+            <BarChart />
+          </section>
+          <section className="w-full pl-4 md:w-1/2">
+            <LineChart />
+          </section>
+        </section>
+        <section className="divider" />
+        <section className="mt-4">
+          <SummaryReceive />
+        </section>
       </>
     </MainLayOut>
   );

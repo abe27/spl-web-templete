@@ -22,15 +22,18 @@
     "@chakra-ui/storybook-addon": "^4.0.16",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.14",
     "@tailwindcss/forms": "^0.5.3",
     "@tanstack/react-table": "^8.7.6",
     "autoprefixer": "^10.4.13",
+    "chart.js": "^4.2.0",
     "daisyui": "^2.49.0",
     "formik": "^2.2.9",
     "framer-motion": "^8.5.2",
     "postcss": "^8.4.21",
+    "react-chartjs-2": "^5.2.0",
     "tailwindcss": "latest"
   }
 }
