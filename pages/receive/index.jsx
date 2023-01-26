@@ -1,13 +1,16 @@
-import { MainLayOut, ReceiveTable } from "@/components"
+import { MainLayOut, ReceiveTable } from "@/components";
 
 const ReceivePage = () => {
   return (
-    <MainLayOut title={`รายการรับสินค้า`} description={`จัดการข้อมูลการรับสินค้า`}>
+    <MainLayOut
+      title={`รายการรับสินค้า`}
+      description={`จัดการข้อมูลการรับสินค้า`}
+    >
       <>
-      <ReceiveTable limit={20}/>
+        <ReceiveTable limit={15} />
       </>
     </MainLayOut>
-  )
-}
+  );
+};
 
-export default ReceivePage
+export default ReceivePage;
