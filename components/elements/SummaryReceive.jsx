@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { DateOnly, DateTime } from "@/hook";
 import { faker } from "@faker-js/faker";
 import { useState, useEffect } from "react";
 import { Loading } from "..";
 
-const SummaryReceive = () => {
+const SummaryReceive = ({limit=10}) => {
   const [data, setData] = useState(null);
 
   const FetchData = () => {
@@ -27,7 +28,7 @@ const SummaryReceive = () => {
     let d = new Date();
     let doc = [];
     let timer = setTimeout(() => {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < limit; i++) {
         let s =
           status[faker.datatype.number({ min: 0, max: status.length - 1 })];
         let w = whs[faker.datatype.number({ min: 0, max: whs.length - 1 })];

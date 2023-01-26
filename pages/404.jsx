@@ -9,7 +9,7 @@ const NotFoundPage = () => {
 
   useEffect(() => {
     if (countDown <= 0) {
-      router.push("/");
+      router.back();
     }
 
     const timer = setTimeout(() => {

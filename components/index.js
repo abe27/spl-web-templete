@@ -6,6 +6,7 @@ import Loading from "./elements/Loading"
 import BarChart from "./elements/BarChart"
 import LineChart from "./elements/LineChart"
 import SummaryReceive from "./elements/SummaryReceive"
+import ReceiveTable from "./elements/ReceiveTable"
 
 export {
   MainLayOut,
@@ -16,4 +17,5 @@ export {
   BarChart,
   LineChart,
   SummaryReceive,
+  ReceiveTable,
 }

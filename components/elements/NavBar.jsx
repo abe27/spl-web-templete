@@ -33,7 +33,7 @@ const classNames = (...classes) => {
 };
 
 const myLogo = ({ src, shade }) => {
-  return `https://tailwindui.com/img/logos/${src}?color=indigo&shade=${
+  return `https://tailwindui.com/img/logos/${src}?color=rose&shade=${
     shade || 500
   }`;
 };
@@ -69,8 +69,8 @@ const NavBar = () => {
                           <span
                             className={classNames(
                               routerActive(item.href)
-                                ? "bg-blue-500 text-gray-200"
-                                : "text-gray-500 hover:bg-blue-500 hover:text-gray-200",
+                                ? "bg-rose-500 text-gray-200"
+                                : "text-gray-500 hover:bg-rose-500 hover:text-gray-200",
                               "px-3 py-2 rounded-md text-sm font-medium"
                             )}
                             aria-current={item.current ? "page" : undefined}
