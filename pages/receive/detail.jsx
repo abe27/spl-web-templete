@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  ConfirmDialog,
-  InputHookWithNumber,
-  Loading,
-  MainLayOut,
+  ConfirmDialog, Loading,
+  MainLayOut
 } from "@/components";
 import { DateOnly, DateTime } from "@/hook";
 import {
@@ -18,20 +16,16 @@ import {
   DrawerOverlay,
   FormControl,
   FormLabel,
-  Input,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  NumberInputStepper,
+  Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput,
+  NumberInputField, NumberInputStepper,
   useDisclosure,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import {
   ArrowPathIcon,
   PencilIcon,
-  PlusCircleIcon,
+  PlusCircleIcon
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -39,11 +33,12 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 
 let status = [
-  { name: "New", class: "text-blue-700" },
   { name: "Success", class: "text-green-600" },
   { name: "In Progress", class: "text-red-700" },
   { name: "Cancel", class: "text-gray-600" },
   { name: "Error", class: "text-rose-800" },
+  { name: "New", class: "text-blue-700" },
+  { name: "Update", class: "text-indigo-600" },
 ];
 
 let whs = ["COM", "DOM", "NESC", "ICAM", "WIRE", "SUPP"];
@@ -75,6 +70,19 @@ const ReceiveDetailPage = () => {
     setData(newState);
   };
 
+  const OpenUpdate = (obj) => {
+    console.dir(obj)
+    setNewPartNo(obj.title)
+    setNewTotal(obj.ctn)
+    onOpen()
+  }
+
+  const OpenAddNew = () => {
+    setNewPartNo("")
+    setNewTotal(0)
+    onOpen()
+  }
+
   const OnSaveNewRec = () => {
     setLoading(true);
     if (newTotal >= 0) {
@@ -83,7 +91,7 @@ const ReceiveDetailPage = () => {
       const newState = data.map((obj) => {
         if (obj.title.indexOf(newPartNo) >= 0) {
           isFound = true;
-          return { ...obj, ctn: newTotal };
+          return { ...obj, ctn: newTotal,status: status[5], };
         }
         return obj;
       });
@@ -98,7 +106,7 @@ const ReceiveDetailPage = () => {
           ctn: newTotal,
           rec: 0,
           diff: newTotal,
-          status: status[0],
+          status: status[4],
           updated: DateTime(new Date().toISOString()),
         };
 
@@ -143,9 +151,9 @@ const ReceiveDetailPage = () => {
     let timer = setTimeout(() => {
       for (let i = 0; i < 5; i++) {
         let s =
-          status[faker.datatype.number({ min: 0, max: status.length - 1 })];
+          status[faker.datatype.number({ min: 0, max: status.length - 3 })];
         let ctn = faker.datatype.number(999);
-        let rec = faker.datatype.number(999);
+        let rec = 0;
         let diff = rec - ctn;
         let p = [
           faker.phone.number("7###-####"),
@@ -300,7 +308,7 @@ const ReceiveDetailPage = () => {
               <button
                 className="btn btn-ghost btn-sm btn-circle hover:text-rose-600"
                 ref={btnRef}
-                onClick={onOpen}
+                onClick={() => OpenAddNew()}
               >
                 <PlusCircleIcon className="w-6 h-6 hover:animate-spin" />
               </button>
@@ -323,7 +331,7 @@ const ReceiveDetailPage = () => {
                   <div className="pl-2">{i.id}</div>
                 </td>
                 <td>
-                  <Link href={`/receive/detail?id=${i.title}`}>
+                  <Link href={`/receive/carton?id=${i.title}`}>
                     <span className="hover:text-blue-800 hover:cursor-pointer">
                       {i.title}
                     </span>
@@ -353,7 +361,7 @@ const ReceiveDetailPage = () => {
                 <td>{i.updated}</td>
                 <td>
                   <div className="flex space-x-1">
-                    <button className="btn btn-ghost btn-sm btn-circle">
+                    <button className="btn btn-ghost btn-sm btn-circle" ref={btnRef} onClick={() => OpenUpdate(i)}>
                       <PencilIcon className="w-4 h-4 text-green-600 hover:text-rose-600" />
                     </button>
                     <ConfirmDialog
