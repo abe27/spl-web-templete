@@ -1,6 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Loading, MainLayOut } from "@/components";
 import { DateOnly, DateTime } from "@/hook";
+import {
+  Button,
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberInput,
+  NumberInputField,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  NumberInputStepper,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import {
   ArrowPathIcon,
@@ -11,7 +32,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { QRCodeCanvas } from "qrcode.react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 let status = [
   { name: "Success", class: "text-green-600" },
@@ -23,14 +44,83 @@ let status = [
 let whs = ["COM", "DOM", "NESC", "ICAM", "WIRE", "SUPP"];
 
 const ReceiveDetailPage = () => {
+  const toast = useToast();
   const router = useRouter();
   const { id } = router.query;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
   const [loading, setLoading] = useState(false);
   const [recDate, setRecDate] = useState(null);
-  const [recWhs, setRecWhs] = useState("-");
+  const [recWhs, setRecWhs] = useState(null);
   const [recNo, setRecNo] = useState(null);
   const [recTotal, setRecTotal] = useState(null);
   const [data, setData] = useState(null);
+
+  //--- new value
+  const [newPartNo, setNewPartNo] = useState("-");
+  const [newTotal, setNewTotal] = useState("0");
+
+  const OnSaveNewRec = () => {
+    setLoading(true);
+    console.log(newPartNo);
+    console.log(newTotal);
+    if (newTotal > 0) {
+      let txt = "อัพเดทข้อมูลเรียบร้อยแล้ว";
+      let isFound = false;
+      const newState = data.map((obj) => {
+        if (obj.title.indexOf(newPartNo) >= 0) {
+          isFound = true;
+          return { ...obj, ctn: newTotal };
+        }
+        return obj;
+      });
+
+      if (!isFound) {
+        txt = "บันทึกข้อมูลเรียบร้อยแล้ว";
+        let n = {
+          id: newState.length + 1,
+          title: newPartNo,
+          description: faker.name.fullName(),
+          total: faker.datatype.number({ min: 1000, max: 999999 }),
+          ctn: newTotal,
+          rec: 0,
+          diff: newTotal,
+          status: status[1],
+          updated: DateTime(new Date().toISOString()),
+        };
+
+        setData([...newState, n]);
+      } else {
+        setData(newState);
+      }
+      onClose();
+      toast({
+        title: "ข้อความแจ้งเตือน",
+        description: txt,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      let timer = setTimeout(() => {
+        setLoading(false);
+        setNewPartNo("-");
+        setNewTotal("0");
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+
+    toast({
+      title: "ข้อความแจ้งเตือน",
+      description: "กรุณาระบข้อมูลให้ถูกต้องด้วย",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
+  };
 
   const FetchData = () => {
     setLoading(true);
@@ -38,7 +128,7 @@ const ReceiveDetailPage = () => {
 
     let doc = [];
     let timer = setTimeout(() => {
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 5; i++) {
         let s =
           status[faker.datatype.number({ min: 0, max: status.length - 1 })];
         let ctn = faker.datatype.number(999);
@@ -61,6 +151,11 @@ const ReceiveDetailPage = () => {
         });
       }
       // console.dir(doc)
+      setRecDate(DateOnly(new Date().toDateString()));
+      let w = whs[faker.datatype.number({ min: 0, max: whs.length - 1 })];
+      setRecWhs(w);
+      setRecNo(id);
+      setRecTotal(faker.datatype.number({ min: 1, max: 9999 }));
       setData([...doc]);
       setLoading(false);
     }, 3200);
@@ -70,11 +165,6 @@ const ReceiveDetailPage = () => {
   };
 
   useEffect(() => {
-    setRecDate(DateOnly(new Date().toDateString()));
-    let w = whs[faker.datatype.number({ min: 0, max: whs.length - 1 })]
-    setRecWhs(w);
-    setRecNo(id);
-    setRecTotal(faker.datatype.number({ min: 1, max: 9999 }));
     FetchData();
   }, []);
 
@@ -194,7 +284,11 @@ const ReceiveDetailPage = () => {
               แก้ไขล่าสุด
             </th>
             <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
-              <button className="btn btn-ghost btn-sm btn-circle hover:text-rose-600">
+              <button
+                className="btn btn-ghost btn-sm btn-circle hover:text-rose-600"
+                ref={btnRef}
+                onClick={onOpen}
+              >
                 <PlusCircleIcon className="w-6 h-6 hover:animate-spin" />
               </button>
             </th>
@@ -259,6 +353,52 @@ const ReceiveDetailPage = () => {
           )}
         </tbody>
       </table>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>เพิ่มข้อมูล</DrawerHeader>
+
+          <DrawerBody>
+            <Divider />
+            <FormControl isRequired>
+              <FormLabel>เลขที่สินค้า</FormLabel>
+              <Input
+                placeholder="เลขที่สินค้า"
+                value={newPartNo}
+                onChange={(e) => setNewPartNo(e.target.value)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>จำนวน</FormLabel>
+              <NumberInput max={50} min={10}>
+                <NumberInputField
+                  value={newTotal}
+                  onChange={(e) => setNewTotal(e.target.value)}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </FormControl>
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant="outline" mr={3} onClick={onClose}>
+              ยกเลิก
+            </Button>
+            <Button colorScheme="blue" onClick={OnSaveNewRec}>
+              บันทึก
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </MainLayOut>
   );
 };
