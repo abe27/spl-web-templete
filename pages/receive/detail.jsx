@@ -1,8 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  ConfirmDialog, Loading,
-  MainLayOut
-} from "@/components";
+import { ConfirmDialog, Loading, MainLayOut } from "@/components";
 import { DateOnly, DateTime } from "@/hook";
 import {
   Button,
@@ -16,16 +13,20 @@ import {
   DrawerOverlay,
   FormControl,
   FormLabel,
-  Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput,
-  NumberInputField, NumberInputStepper,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import {
   ArrowPathIcon,
   PencilIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -65,23 +66,23 @@ const ReceiveDetailPage = () => {
     const newState = data.filter((p) => p.id !== obj.id);
     let x = 1;
     newState.map((i) => {
-      i.id = x++
+      i.id = x++;
     });
     setData(newState);
   };
 
   const OpenUpdate = (obj) => {
-    console.dir(obj)
-    setNewPartNo(obj.title)
-    setNewTotal(obj.ctn)
-    onOpen()
-  }
+    console.dir(obj);
+    setNewPartNo(obj.title);
+    setNewTotal(obj.ctn);
+    onOpen();
+  };
 
   const OpenAddNew = () => {
-    setNewPartNo("")
-    setNewTotal(0)
-    onOpen()
-  }
+    setNewPartNo("");
+    setNewTotal(0);
+    onOpen();
+  };
 
   const OnSaveNewRec = () => {
     setLoading(true);
@@ -91,7 +92,7 @@ const ReceiveDetailPage = () => {
       const newState = data.map((obj) => {
         if (obj.title.indexOf(newPartNo) >= 0) {
           isFound = true;
-          return { ...obj, ctn: newTotal,status: status[5], };
+          return { ...obj, ctn: newTotal, status: status[5] };
         }
         return obj;
       });
@@ -361,7 +362,11 @@ const ReceiveDetailPage = () => {
                 <td>{i.updated}</td>
                 <td>
                   <div className="flex space-x-1">
-                    <button className="btn btn-ghost btn-sm btn-circle" ref={btnRef} onClick={() => OpenUpdate(i)}>
+                    <button
+                      className="btn btn-ghost btn-sm btn-circle"
+                      ref={btnRef}
+                      onClick={() => OpenUpdate(i)}
+                    >
                       <PencilIcon className="w-4 h-4 text-green-600 hover:text-rose-600" />
                     </button>
                     <ConfirmDialog
