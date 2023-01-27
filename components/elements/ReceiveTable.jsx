@@ -9,6 +9,7 @@ import { Loading } from "..";
 
 const ReceiveTable = ({ limit = 15 }) => {
   const inputRef = useRef(null);
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState(null);
 
   const handleUploadExcelClick = () => {
@@ -35,6 +36,7 @@ const ReceiveTable = ({ limit = 15 }) => {
   };
 
   const FetchData = () => {
+    setLoading(true)
     setData(null);
     const whs = [
       { whs: "COM", prefix: "TI2", class: "text-green-700" },
@@ -81,7 +83,8 @@ const ReceiveTable = ({ limit = 15 }) => {
         });
       }
       setData([...doc]);
-    }, 3000);
+      setLoading(false)
+    }, 2200);
 
     return () => {
       clearTimeout(timer);
@@ -100,9 +103,9 @@ const ReceiveTable = ({ limit = 15 }) => {
         type="file"
         onChange={handleFileChange}
       />
-      <div class="overflow-x-auto">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-stretch w-full">
-          <div className="w-full lg:w-1/3 flex flex-col lg:flex-row items-start lg:items-center">
+      <div className="overflow-x-auto">
+        <div className="flex flex-col items-start justify-between w-full lg:flex-row lg:items-stretch">
+          <div className="flex flex-col items-start w-full lg:w-1/3 lg:flex-row lg:items-center">
             <div className="flex items-center space-x-4">
               <div className="btn btn-ghost btn-sm" onClick={() => FetchData()}>
                 <svg
@@ -111,7 +114,7 @@ const ReceiveTable = ({ limit = 15 }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className={loading ? "w-6 h-6 animate-spin" : "w-6 h-6"}
                 >
                   <path
                     strokeLinecap="round"
@@ -122,16 +125,16 @@ const ReceiveTable = ({ limit = 15 }) => {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
-            <div className="lg:ml-6 flex items-center">
+          <div className="flex flex-col items-start justify-end w-full lg:w-2/3 lg:flex-row lg:items-center">
+            <div className="flex items-center lg:ml-6">
               <button
                 onClick={handleUploadExcelClick}
-                className="bg-gray-200 transition duration-150 ease-in-out focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray hover:bg-gray-300 rounded text-indigo-700 px-5 h-8 flex items-center text-sm"
+                className="flex items-center h-8 px-5 text-sm text-indigo-700 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray hover:bg-gray-300 hover:animate-bounce"
               >
                 อัพโหลด Excel
               </button>
               <Link href="/receive/add">
-                <div className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-rose-700 transition duration-150 ease-in-out hover:bg-rose-600 w-8 h-8 rounded flex items-center justify-center">
+                <div className="flex items-center justify-center w-8 h-8 ml-4 text-white transition duration-150 ease-in-out border border-transparent rounded cursor-pointer focus:outline-none focus:border-gray-800 focus:shadow-outline-gray bg-rose-700 hover:bg-rose-600">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -151,34 +154,34 @@ const ReceiveTable = ({ limit = 15 }) => {
             </div>
           </div>
         </div>
-        <table class="table table-compact w-full mt-2">
+        <table className="table table-compact w-full mt-2">
           <thead>
             <tr>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 #
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 คลังสินค้า
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 วดป.
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 เลขที่เอกสาร
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 จำนวน
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 รับแล้ว
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 ค้างรับ
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 สถานะ
               </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 แก้ไขล่าสุด
               </th>
             </tr>
@@ -222,15 +225,15 @@ const ReceiveTable = ({ limit = 15 }) => {
           </tbody>
         </table>
         {data !== null && (
-          <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-            <span class="text-xs xs:text-sm text-gray-900">
+          <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+            <span className="text-xs xs:text-sm text-gray-900">
               Showing 1 to 4 of 50 Entries
             </span>
-            <div class="inline-flex mt-2 xs:mt-0">
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+            <div className="inline-flex mt-2 xs:mt-0">
+              <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
                 ก่อนหน้า
               </button>
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+              <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
                 ถัดไป
               </button>
             </div>
