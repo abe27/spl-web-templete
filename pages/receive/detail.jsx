@@ -1,5 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Loading, MainLayOut } from "@/components";
+import {
+  ConfirmDialog,
+  InputHookWithNumber,
+  Loading,
+  MainLayOut,
+} from "@/components";
 import { DateOnly, DateTime } from "@/hook";
 import {
   Button,
@@ -27,7 +32,6 @@ import {
   ArrowPathIcon,
   PencilIcon,
   PlusCircleIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -35,6 +39,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 
 let status = [
+  { name: "New", class: "text-blue-700" },
   { name: "Success", class: "text-green-600" },
   { name: "In Progress", class: "text-red-700" },
   { name: "Cancel", class: "text-gray-600" },
@@ -57,14 +62,22 @@ const ReceiveDetailPage = () => {
   const [data, setData] = useState(null);
 
   //--- new value
-  const [newPartNo, setNewPartNo] = useState("-");
+  const [newPartNo, setNewPartNo] = useState("");
   const [newTotal, setNewTotal] = useState("0");
+
+  const ConfirmDelete = (obj) => {
+    // console.dir(obj)
+    const newState = data.filter((p) => p.id !== obj.id);
+    let x = 1;
+    newState.map((i) => {
+      i.id = x++
+    });
+    setData(newState);
+  };
 
   const OnSaveNewRec = () => {
     setLoading(true);
-    console.log(newPartNo);
-    console.log(newTotal);
-    if (newTotal > 0) {
+    if (newTotal >= 0) {
       let txt = "อัพเดทข้อมูลเรียบร้อยแล้ว";
       let isFound = false;
       const newState = data.map((obj) => {
@@ -85,7 +98,7 @@ const ReceiveDetailPage = () => {
           ctn: newTotal,
           rec: 0,
           diff: newTotal,
-          status: status[1],
+          status: status[0],
           updated: DateTime(new Date().toISOString()),
         };
 
@@ -104,7 +117,7 @@ const ReceiveDetailPage = () => {
       });
       let timer = setTimeout(() => {
         setLoading(false);
-        setNewPartNo("-");
+        setNewPartNo("");
         setNewTotal("0");
       }, 1000);
       return () => {
@@ -343,9 +356,12 @@ const ReceiveDetailPage = () => {
                     <button className="btn btn-ghost btn-sm btn-circle">
                       <PencilIcon className="w-4 h-4 text-green-600 hover:text-rose-600" />
                     </button>
-                    <button className="btn btn-ghost btn-sm btn-circle">
-                      <XMarkIcon className="w-4 h-4 text-rose-600 hover:text-orange-600" />
-                    </button>
+                    <ConfirmDialog
+                      obj={i}
+                      description={`คุณต้องการที่จะลบข้อมูล ${i.title} นี้ใช่หรือไม่?`}
+                      handlerConfirm={ConfirmDelete}
+                      disabled={i.rec > 0}
+                    />
                   </div>
                 </td>
               </tr>
@@ -376,7 +392,7 @@ const ReceiveDetailPage = () => {
             </FormControl>
             <FormControl isRequired>
               <FormLabel>จำนวน</FormLabel>
-              <NumberInput max={50} min={10}>
+              <NumberInput max={999} min={0}>
                 <NumberInputField
                   value={newTotal}
                   onChange={(e) => setNewTotal(e.target.value)}

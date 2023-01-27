@@ -7,6 +7,7 @@ import BarChart from "./elements/BarChart"
 import LineChart from "./elements/LineChart"
 import SummaryReceive from "./elements/SummaryReceive"
 import ReceiveTable from "./elements/ReceiveTable"
+import ConfirmDialog from "./elements/ConfirmDialog"
 
 export {
   MainLayOut,
@@ -18,4 +19,5 @@ export {
   LineChart,
   SummaryReceive,
   ReceiveTable,
+  ConfirmDialog,
 }
