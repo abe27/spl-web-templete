@@ -72,7 +72,7 @@ const ReceiveDetailPage = () => {
   };
 
   const OpenUpdate = (obj) => {
-    console.dir(obj);
+    // console.dir(obj);
     setNewPartNo(obj.title);
     setNewTotal(obj.ctn);
     onOpen();

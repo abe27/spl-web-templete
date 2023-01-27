@@ -22,17 +22,17 @@ const ReceiveTable = ({ limit = 15 }) => {
       return;
     }
 
-    console.log("fileObj is", fileObj);
+    // console.log("fileObj is", fileObj);
 
-    // 👇️ reset file input
-    event.target.value = null;
+    // // 👇️ reset file input
+    // event.target.value = null;
 
-    // 👇️ is now empty
-    console.log(event.target.files);
+    // // 👇️ is now empty
+    // console.log(event.target.files);
 
-    // 👇️ can still access file object here
-    console.log(fileObj);
-    console.log(fileObj.name);
+    // // 👇️ can still access file object here
+    // console.log(fileObj);
+    // console.log(fileObj.name);
   };
 
   const FetchData = () => {
@@ -154,34 +154,34 @@ const ReceiveTable = ({ limit = 15 }) => {
             </div>
           </div>
         </div>
-        <table className="table table-compact w-full mt-2">
+        <table className="table w-full mt-2 table-compact">
           <thead>
             <tr>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 #
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 คลังสินค้า
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 วดป.
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 เลขที่เอกสาร
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 จำนวน
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 รับแล้ว
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 ค้างรับ
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 สถานะ
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 แก้ไขล่าสุด
               </th>
             </tr>
@@ -225,15 +225,15 @@ const ReceiveTable = ({ limit = 15 }) => {
           </tbody>
         </table>
         {data !== null && (
-          <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-            <span className="text-xs xs:text-sm text-gray-900">
+          <div className="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between ">
+            <span className="text-xs text-gray-900 xs:text-sm">
               Showing 1 to 4 of 50 Entries
             </span>
             <div className="inline-flex mt-2 xs:mt-0">
-              <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+              <button className="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400">
                 ก่อนหน้า
               </button>
-              <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+              <button className="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400">
                 ถัดไป
               </button>
             </div>

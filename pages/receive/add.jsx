@@ -78,7 +78,7 @@ const ReceiveAddNewPage = () => {
       });
       return;
     } else {
-      console.dir("open dialog");
+      // console.dir("open dialog");
       setNewPartNo("");
       setNewTotal(0);
       onOpen();
@@ -135,7 +135,7 @@ const ReceiveAddNewPage = () => {
   };
 
   const OpenUpdate = (obj) => {
-    console.dir(obj);
+    // console.dir(obj);
     setNewPartNo(obj.title);
     setNewTotal(obj.ctn);
     onOpen();
