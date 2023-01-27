@@ -92,7 +92,7 @@ const ReceiveDetailPage = () => {
       const newState = data.map((obj) => {
         if (obj.title.indexOf(newPartNo) >= 0) {
           isFound = true;
-          return { ...obj, ctn: newTotal, status: status[5] };
+          return { ...obj, ctn: newTotal, diff: obj.rec - newTotal,status: status[5] };
         }
         return obj;
       });
@@ -157,6 +157,7 @@ const ReceiveDetailPage = () => {
         let rec = 0;
         let diff = rec - ctn;
         let p = [
+          faker.phone.number("18######"),
           faker.phone.number("7###-####"),
           faker.phone.number("7###-####-##"),
         ];
