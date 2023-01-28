@@ -33,11 +33,17 @@ const EDIPage = () => {
   };
 
   const handlerConfirm = (obj) => {
-    const newState = data.filter((p) => p.id !== obj.id);
-    let x = 1;
-    newState.map((i) => {
-      i.id = x++;
+    const newState = data.map((i) => {
+      if (i.batch_id === obj.batch_id) {
+        return {
+          ...i,
+          is_download: !obj.is_download,
+          updated: DateTime(new Date().toISOString())
+        };
+      }
+      return i;
     });
+
     setData(newState);
   };
 
@@ -58,11 +64,11 @@ const EDIPage = () => {
         batch_download: x.batch_download,
         status: EdiStatus(),
         is_download: faker.datatype.boolean(),
-        updated: DateTime(new Date().toISOString()),
+        updated: DateTime(faker.date.between("2022-01-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z").toISOString()),
       });
     }
 
-    console.dir(doc);
+    // console.dir(doc);
     let timer = setTimeout(() => {
       setLoading(false);
       setData(doc);
@@ -182,7 +188,7 @@ const EDIPage = () => {
                     <span className={i.batch_class}>{i.batch_type}</span>
                   </td>
                   <td>
-                    <Link href={`/receive/detail?id=${i.batch_id}`}>
+                    <Link href={`/edi/detail?id=${i.batch_id}`}>
                       <span className="uppercase hover:text-blue-800 hover:cursor-pointer">
                         {i.batch_id}
                       </span>
@@ -199,8 +205,9 @@ const EDIPage = () => {
                   <td>
                     <ConfirmReloadDialog
                       obj={i}
+                      disabled={!i.is_download}
                       isChecked={i.is_download}
-                      description={`ลบข้อมูลเลขที่ ${i.batch_id} นี้?`}
+                      description={`โหลดข้อมูล ${i.batch_id} นี้ อีกครั้ง?`}
                       handlerConfirm={handlerConfirm}
                     />
                   </td>

@@ -37,7 +37,6 @@ const ConfirmDialog = ({
         <XMarkIcon className="w-4 h-4" />
       </button>
       <AlertDialog
-        motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         isOpen={isOpen}

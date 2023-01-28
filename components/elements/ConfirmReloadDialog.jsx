@@ -48,7 +48,6 @@ const ConfirmReloadDialog = ({
         </button>
       )}
       <AlertDialog
-        motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         isOpen={isOpen}
