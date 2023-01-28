@@ -9,6 +9,7 @@ import SummaryReceive from "./elements/SummaryReceive"
 import ReceiveTable from "./elements/ReceiveTable"
 import ConfirmDialog from "./elements/ConfirmDialog"
 import ConfirmReloadDialog from "./elements/ConfirmReloadDialog"
+import EdiDownload from "./elements/EdiDownload"
 
 export {
   MainLayOut,
@@ -21,5 +22,6 @@ export {
   SummaryReceive,
   ReceiveTable,
   ConfirmDialog,
-  ConfirmReloadDialog
+  ConfirmReloadDialog,
+  EdiDownload
 }
