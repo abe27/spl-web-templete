@@ -1,19 +1,20 @@
 import {
   AlertDialog,
-  AlertDialogOverlay,
   AlertDialogBody,
   AlertDialogCloseButton,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogOverlay,
   Button,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
+import { ArrowPathIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useRef } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const ConfirmDialog = ({
+const ConfirmReloadDialog = ({
   obj = {},
+  isChecked = false,
   disabled = false,
   title = "ยืนยันคำสั่ง!",
   description = "description.",
@@ -29,13 +30,23 @@ const ConfirmDialog = ({
 
   return (
     <>
-      <button
-        className="btn btn-ghost btn-circle btn-sm text-rose-600 hover:bg-rose-600 hover:text-gray-50"
-        disabled={disabled}
-        onClick={onOpen}
-      >
-        <XMarkIcon className="w-4 h-4" />
-      </button>
+      {isChecked ? (
+        <button
+          className="text-green-600 btn btn-ghost btn-circle btn-sm hover:bg-green-600 hover:text-gray-50"
+          disabled={disabled}
+          onClick={onOpen}
+        >
+          <CheckIcon className="w-4 h-4" />
+        </button>
+      ) : (
+        <button
+          className="text-orange-600 btn btn-ghost btn-circle btn-sm hover:bg-orange-600 hover:text-gray-50"
+          disabled={disabled}
+          onClick={onOpen}
+        >
+          <ArrowPathIcon className="w-4 h-4" />
+        </button>
+      )}
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
@@ -63,4 +74,4 @@ const ConfirmDialog = ({
   );
 };
 
-export default ConfirmDialog;
+export default ConfirmReloadDialog;

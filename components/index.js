@@ -8,6 +8,7 @@ import LineChart from "./elements/LineChart"
 import SummaryReceive from "./elements/SummaryReceive"
 import ReceiveTable from "./elements/ReceiveTable"
 import ConfirmDialog from "./elements/ConfirmDialog"
+import ConfirmReloadDialog from "./elements/ConfirmReloadDialog"
 
 export {
   MainLayOut,
@@ -20,4 +21,5 @@ export {
   SummaryReceive,
   ReceiveTable,
   ConfirmDialog,
+  ConfirmReloadDialog
 }

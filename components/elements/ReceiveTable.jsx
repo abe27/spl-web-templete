@@ -9,7 +9,7 @@ import { Loading } from "..";
 
 const ReceiveTable = ({ limit = 15 }) => {
   const inputRef = useRef(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
 
   const handleUploadExcelClick = () => {
@@ -36,7 +36,7 @@ const ReceiveTable = ({ limit = 15 }) => {
   };
 
   const FetchData = () => {
-    setLoading(true)
+    setLoading(true);
     setData(null);
     const whs = [
       { whs: "COM", prefix: "TI2", class: "text-green-700" },
@@ -53,7 +53,6 @@ const ReceiveTable = ({ limit = 15 }) => {
       { name: "Cancel", class: "text-gray-600" },
     ];
 
-    let d = new Date();
     let doc = [];
     let timer = setTimeout(() => {
       for (let i = 0; i < limit; i++) {
@@ -63,11 +62,22 @@ const ReceiveTable = ({ limit = 15 }) => {
         let ctn = faker.datatype.number(9999);
         let rec = faker.datatype.number(9999);
         let diff = rec - ctn;
+        let d = faker.date.between(
+          "2022-12-01T00:00:00.000Z",
+          "2023-01-31T00:00:00.000Z"
+        );
         doc.push({
           id: i + 1,
           class: w.class,
+          batch_id: (
+            "00000" + faker.datatype.number({ min: 0, max: 9999 })
+          ).slice(-5),
           whs: w.whs,
-          etd: DateOnly(new Date().toUTCString()),
+          etd: DateOnly(
+            faker.date
+              .between("2022-12-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z")
+              .toUTCString()
+          ),
           rec_no: `${w.prefix}${d.getFullYear().toString().substring(3, 4)}${(
             "0" +
             (d.getMonth() + 1)
@@ -79,11 +89,15 @@ const ReceiveTable = ({ limit = 15 }) => {
           rec: rec,
           diff: diff,
           status: s,
-          updated: DateTime(new Date().toISOString()),
+          updated: DateTime(
+            faker.date
+              .between("2022-12-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z")
+              .toISOString()
+          ),
         });
       }
       setData([...doc]);
-      setLoading(false)
+      setLoading(false);
     }, 2200);
 
     return () => {
@@ -129,7 +143,7 @@ const ReceiveTable = ({ limit = 15 }) => {
             <div className="flex items-center lg:ml-6">
               <button
                 onClick={handleUploadExcelClick}
-                className="flex items-center h-8 px-5 text-sm text-indigo-700 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray hover:bg-gray-300 hover:animate-bounce"
+                className="flex items-center h-8 px-5 text-sm text-indigo-700 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray hover:bg-rose-600 hover:text-gray-50"
               >
                 อัพโหลด Excel
               </button>
@@ -164,6 +178,9 @@ const ReceiveTable = ({ limit = 15 }) => {
                 คลังสินค้า
               </th>
               <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
+                edi
+              </th>
+              <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
                 วดป.
               </th>
               <th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
@@ -189,7 +206,7 @@ const ReceiveTable = ({ limit = 15 }) => {
           <tbody>
             {data === null ? (
               <tr>
-                <th colSpan={9}>
+                <th colSpan={10}>
                   <div className="justify-center">
                     <Loading size="5" />
                   </div>
@@ -203,6 +220,13 @@ const ReceiveTable = ({ limit = 15 }) => {
                   </td>
                   <td>
                     <span className={i.class}>{i.whs}</span>
+                  </td>
+                  <td>
+                    <Link href={`/edi/detail?id=${i.batch_id}`}>
+                      <span className="hover:text-blue-800 hover:cursor-pointer">
+                        {i.batch_id}
+                      </span>
+                    </Link>
                   </td>
                   <td>{i.etd}</td>
                   <td>
