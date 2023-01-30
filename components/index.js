@@ -10,6 +10,7 @@ import ReceiveTable from "./elements/ReceiveTable"
 import ConfirmDialog from "./elements/ConfirmDialog"
 import ConfirmReloadDialog from "./elements/ConfirmReloadDialog"
 import EdiDownload from "./elements/EdiDownload"
+import EdiUpload from "./elements/EdiUpload"
 
 export {
   MainLayOut,
@@ -23,5 +24,6 @@ export {
   ReceiveTable,
   ConfirmDialog,
   ConfirmReloadDialog,
-  EdiDownload
+  EdiDownload,
+  EdiUpload
 }

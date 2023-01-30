@@ -41,7 +41,7 @@ const myLogo = ({ src, shade }) => {
 const NavBar = () => {
   const router = useRouter()
   const routerActive = (href) => {
-    return router.pathname.substring(0, 5) === href.substring(0, 5)
+    return router.pathname.substring(0, 4) === href.substring(0, 4)
   }
 
   return (

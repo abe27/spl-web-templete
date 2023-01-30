@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import {
-  EdiDownload, MainLayOut
+  EdiDownload, EdiUpload, MainLayOut
 } from "@/components";
 import {
   Tab, TabList, TabPanel, TabPanels, Tabs
@@ -20,7 +20,7 @@ const EDIPage = () => {
             <EdiDownload />
           </TabPanel>
           <TabPanel>
-            <p>two!</p>
+            <EdiUpload />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -15,7 +15,7 @@ import { faker } from "@faker-js/faker";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const EdiDownload = () => {
+const EdiUpload = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [txtSearch, setTxtSearch] = useState("");
@@ -221,4 +221,4 @@ const EdiDownload = () => {
   );
 };
 
-export default EdiDownload;
+export default EdiUpload;
