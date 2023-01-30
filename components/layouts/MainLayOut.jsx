@@ -17,12 +17,7 @@ const MainLayOut = ({
       </Head>
       <div className="min-h-full">
         <NavBar />
-        {/* <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl py-4 px-2 sm:px-6 lg:px-8">
-            ggg
-          </div>
-        </header> */}
-        <main className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <main className="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Replace with your content */}
           {children}
           {/* /End replace */}
