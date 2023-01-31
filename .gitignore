@@ -32,3 +32,4 @@ yarn-error.log*
 .vercel
 bun.lockb
 pnpm-lock.yaml
+package-lock.json
