@@ -11,6 +11,7 @@ import ConfirmDialog from "./elements/ConfirmDialog"
 import ConfirmReloadDialog from "./elements/ConfirmReloadDialog"
 import EdiDownload from "./elements/EdiDownload"
 import EdiUpload from "./elements/EdiUpload"
+import StockList from "./elements/StockList"
 
 export {
   MainLayOut,
@@ -25,5 +26,6 @@ export {
   ConfirmDialog,
   ConfirmReloadDialog,
   EdiDownload,
-  EdiUpload
+  EdiUpload,
+  StockList
 }
