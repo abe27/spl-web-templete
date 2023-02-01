@@ -1,5 +1,5 @@
 import { Loading, MainLayOut } from "@/components";
-import { RandomLastUpdate } from "@/hook";
+import { RandomLastUpdate, FetchPart } from "@/hook";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Input,
@@ -22,14 +22,22 @@ const StockDetailPage = () => {
   const FetchData = () => {
     setLoading(true);
     setData([]);
+    let p = FetchPart(25)
     let doc = [];
-    for (let i = 0; i < 15; i++) {
+    p.map(i => {
       doc.push({
-        id: i + 1,
+        id: doc.length + 1,
+        part: i,
+        serial_no: faker.finance.account(10),// ซีเรียล
+        lot_no: faker.finance.account(6),// เลขที่ LOT
+        line_no: `T-${faker.finance.account(1)}`,// LINE NO
+        revise_no: faker.finance.account(1),// REVISE NO
+        shelve_no: "-",// ชั้น
+        pallet_no: "-",// เลขที่พาเลท
         qty: faker.datatype.number({min: 0, max: 9999}),
         updated: RandomLastUpdate()
       });
-    }
+    })
     const timer = setTimeout(() => {
       setLoading(false);
       setData(doc);
@@ -143,14 +151,14 @@ const StockDetailPage = () => {
               data.map((i, x) => (
                 <tr key={x}>
                   <td>{i.id}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{i.part.title}</td>
+                  <td>{i.part.description}</td>
+                  <td>{i.serial_no}</td>
+                  <td>{i.lot_no}</td>
+                  <td>{i.line_no}</td>
+                  <td>{i.revise_no}</td>
+                  <td>{i.shelve_no}</td>
+                  <td>{i.pallet_no}</td>
                   <td>
                     <span className="text-orange-600">{i.qty.toLocaleString()}</span>
                   </td>
