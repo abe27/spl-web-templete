@@ -145,7 +145,23 @@ const ReceiveTable = ({ limit = 15 }) => {
                 onClick={handleUploadExcelClick}
                 className="flex items-center h-8 px-5 text-sm text-indigo-700 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray hover:bg-rose-600 hover:text-gray-50"
               >
-                อัพโหลด Excel
+                <div className="flex justify-between space-x-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                    />
+                  </svg>
+                  <div>อัพโหลด Excel</div>
+                </div>
               </button>
               <Link href="/receive/add">
                 <div className="flex items-center justify-center w-8 h-8 ml-4 text-white transition duration-150 ease-in-out border border-transparent rounded cursor-pointer focus:outline-none focus:border-gray-800 focus:shadow-outline-gray bg-rose-700 hover:bg-rose-600">

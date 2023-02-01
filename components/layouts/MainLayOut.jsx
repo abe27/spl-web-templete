@@ -17,7 +17,7 @@ const MainLayOut = ({
       </Head>
       <div className="min-h-full">
         <NavBar />
-        <main className="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <main className="py-6 mx-auto text-sm font-medium max-w-7xl sm:px-6 lg:px-8">
           {/* Replace with your content */}
           {children}
           {/* /End replace */}

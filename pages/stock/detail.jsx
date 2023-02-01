@@ -1,5 +1,5 @@
-import { MainLayOut } from "@/components";
-import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
+import { Loading, MainLayOut } from "@/components";
+import { CheckIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Input,
   InputGroup,
@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 const StockDetailPage = () => {
   const [loading, setLoading] = useState(false);
   const [txtSearch, setTxtSearch] = useState("");
+  const [data, setData] = useState([]);
 
   const SearchTxt = (e) => {
     setTxtSearch(e.target.value);
@@ -18,8 +19,16 @@ const StockDetailPage = () => {
 
   const FetchData = () => {
     setLoading(true);
+    setData([]);
+    let doc = [];
+    for (let i = 0; i < 15; i++) {
+      doc.push({
+        id: i + 1,
+      });
+    }
     const timer = setTimeout(() => {
       setLoading(false);
+      setData(doc);
     }, 1000);
     return () => {
       clearTimeout(timer);
@@ -77,9 +86,29 @@ const StockDetailPage = () => {
                 <InputRightElement
                   // eslint-disable-next-line react/no-children-prop
                   children={
-                    <CheckIcon
-                      color={txtSearch.length > 0 ? "green.500" : "gray.500"}
-                    />
+                    txtSearch.length > 0 ? (
+                      <span
+                        className="hover:cursor-pointer"
+                        onClick={() => setTxtSearch("")}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4 text-rose-600"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <></>
+                    )
                   }
                 />
               </InputGroup>
@@ -87,7 +116,50 @@ const StockDetailPage = () => {
           </div>
         </div>
         <div className="divider" />
-        <div></div>
+        <table className="table w-full table-compact">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>สินค้า</th>
+              <th>รายละเอียด</th>
+              <th>ซีเรียล</th>
+              <th>เลขที่ Lot</th>
+              <th>line no.</th>
+              <th>revise no.</th>
+              <th>ชั้น</th>
+              <th>เลขที่พาเลท</th>
+              <th>จำนวน</th>
+              <th>แก้ไขล่าสุด</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.length > 0 ? (
+              data.map((i, x) => (
+                <tr key={x}>
+                  <td>{i.id}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={12}>
+                  <Loading />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </MainLayOut>
   );

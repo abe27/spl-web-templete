@@ -26,11 +26,21 @@ const StockPage = () => {
     >
       <Tabs align="end" variant="enclosed">
         <TabList>
-          <Tab>รายการสินค้า</Tab>
-          <Tab>รอทำพาเลท</Tab>
-          <Tab>รอจัดเก็บ</Tab>
-          <Tab>จัดเตรียม</Tab>
-          <Tab>ผลการสต็อค</Tab>
+          <Tab>
+            <span className="text-sm text-small">รายการสินค้า</span>
+          </Tab>
+          <Tab>
+            <span className="text-sm text-small">รอทำพาเลท</span>
+          </Tab>
+          <Tab>
+            <span className="text-sm text-small">รอจัดเก็บ</span>
+          </Tab>
+          <Tab>
+            <span className="text-sm text-small">จัดเตรียม</span>
+          </Tab>
+          <Tab>
+            <span className="text-sm text-small">ผลการสต็อค</span>
+          </Tab>
         </TabList>
 
         <TabPanels>
