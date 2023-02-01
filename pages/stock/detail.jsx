@@ -1,11 +1,11 @@
-import { Loading, MainLayOut } from "@/components";
+import { DrawerCartonDetail, Loading, MainLayOut } from "@/components";
 import { RandomLastUpdate, FetchPart } from "@/hook";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement
+  InputRightElement,
 } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import { useEffect, useState } from "react";
@@ -22,22 +22,22 @@ const StockDetailPage = () => {
   const FetchData = () => {
     setLoading(true);
     setData([]);
-    let p = FetchPart(25)
+    let p = FetchPart(10);
     let doc = [];
-    p.map(i => {
+    p.map((i) => {
       doc.push({
         id: doc.length + 1,
         part: i,
-        serial_no: faker.finance.account(10),// ซีเรียล
-        lot_no: faker.finance.account(6),// เลขที่ LOT
-        line_no: `T-${faker.finance.account(1)}`,// LINE NO
-        revise_no: faker.finance.account(1),// REVISE NO
-        shelve_no: "-",// ชั้น
-        pallet_no: "-",// เลขที่พาเลท
-        qty: faker.datatype.number({min: 0, max: 9999}),
-        updated: RandomLastUpdate()
+        serial_no: faker.finance.account(10), // ซีเรียล
+        lot_no: faker.finance.account(6), // เลขที่ LOT
+        line_no: `T-${faker.finance.account(1)}`, // LINE NO
+        revise_no: faker.finance.account(1), // REVISE NO
+        shelve_no: "-", // ชั้น
+        pallet_no: "-", // เลขที่พาเลท
+        qty: faker.datatype.number({ min: 0, max: 9999 }),
+        updated: RandomLastUpdate(),
       });
-    })
+    });
     const timer = setTimeout(() => {
       setLoading(false);
       setData(doc);
@@ -160,26 +160,13 @@ const StockDetailPage = () => {
                   <td>{i.shelve_no}</td>
                   <td>{i.pallet_no}</td>
                   <td>
-                    <span className="text-orange-600">{i.qty.toLocaleString()}</span>
+                    <span className="text-orange-600">
+                      {i.qty.toLocaleString()}
+                    </span>
                   </td>
                   <td>{i.updated}</td>
                   <td>
-                    <span className="hover:cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4 text-orange-600"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
-                    </span>
+                    <DrawerCartonDetail />
                   </td>
                 </tr>
               ))

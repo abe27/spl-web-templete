@@ -12,6 +12,7 @@ import ConfirmReloadDialog from "./elements/ConfirmReloadDialog"
 import EdiDownload from "./elements/EdiDownload"
 import EdiUpload from "./elements/EdiUpload"
 import StockList from "./elements/StockList"
+import DrawerCartonDetail from "./elements/DrawerCartonDetail"
 
 export {
   MainLayOut,
@@ -27,5 +28,6 @@ export {
   ConfirmReloadDialog,
   EdiDownload,
   EdiUpload,
-  StockList
+  StockList,
+  DrawerCartonDetail
 }

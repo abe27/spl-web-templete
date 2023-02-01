@@ -41,6 +41,9 @@ const StockPage = () => {
           <Tab>
             <span className="text-sm text-small">ผลการสต็อค</span>
           </Tab>
+          <Tab>
+            <span className="text-sm text-small">ประวัติการเคลื่อนไหว</span>
+          </Tab>
         </TabList>
 
         <TabPanels>
