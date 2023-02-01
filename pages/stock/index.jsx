@@ -30,7 +30,7 @@ const StockPage = () => {
           <Tab>รอทำพาเลท</Tab>
           <Tab>รอจัดเก็บ</Tab>
           <Tab>จัดเตรียม</Tab>
-          <Tab>ตรวจเช็คสต็อค</Tab>
+          <Tab>ผลการสต็อค</Tab>
         </TabList>
 
         <TabPanels>
